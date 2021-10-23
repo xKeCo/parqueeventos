@@ -2,12 +2,20 @@ import { useState } from "react";
 import ReactMapGL, { Marker, FlyToInterpolator } from "react-map-gl";
 import { LocationOn as LocationOnIcon } from "@mui/icons-material";
 import IconButton from "@mui/material/IconButton";
-import * as data from "./data/parks";
+import data from "./data/parks";
+
+// hook
+import useParks from "../hook/useParks";
 
 // Styles
 import styles from "../styles/Home.module.css";
+import SearchBar from "../components/searchBar";
+import Panel from "../components/panel";
 
 export default function Home() {
+  const { docs, loading, error } = useParks(data);
+  const [currentPark, setCurrentPark] = useState(null);
+
   const REACT_APP_MAPBOX_TOKEN =
     "pk.eyJ1Ijoia2V2Y29sbGF6b3MiLCJhIjoiY2t2MnY4b3ZrODluZjJ3bnpjNmV0aDJhOSJ9.2fKEkC84IvmFQ1M9sdnsIg";
 
@@ -19,53 +27,81 @@ export default function Home() {
     zoom: 12,
   });
 
-  const goTo = () => {
+  const goTo = (latitude, longitude) => {
     setViewport({
       ...viewport,
-      latitude: 3.3868,
-      longitude: -76.5297,
+      latitude: latitude,
+      longitude: longitude,
       zoom: 16,
-      transitionDuration: 1000,
+      transitionDuration: 1500,
       transitionInterpolator: new FlyToInterpolator(),
     });
   };
 
-  console.log(data);
-
   return (
     <>
       <div className={styles.map}>
-        <div className="info_container">
-          <h1>Hola</h1>
-          <button onClick={goTo}>hola</button>
+        <div className={styles.info_container}>
+          <SearchBar />
+          {currentPark ? (
+            <>
+              <button
+                onClick={() => {
+                  setCurrentPark(null);
+                  setViewport({
+                    ...viewport,
+                    zoom: 14,
+                    transitionDuration: 1500,
+                  });
+                }}
+              >
+                X
+              </button>
+              <h1>{currentPark.name}</h1>
+              <p>{currentPark.location}</p>
+              <p>{currentPark.description}</p>
+              <ul>
+                {currentPark.recomendations.map((recomendation) => (
+                  <li key={recomendation}>{recomendation}</li>
+                ))}
+              </ul>
+            </>
+          ) : (
+            <Panel
+              docs={docs}
+              loading={loading}
+              error={error}
+              goTo={goTo}
+              setCurrentPark={setCurrentPark}
+            />
+          )}
         </div>
         <div className="map_container">
           <ReactMapGL
             {...viewport}
             mapboxApiAccessToken={REACT_APP_MAPBOX_TOKEN}
             mapStyle={`mapbox://styles/kevcollazos/ckv2v68vb449914s1cojha71p`}
-            onViewportChange={setViewport}
+            onViewportChange={(viewport) => setViewport(viewport)}
           >
-            {/* {data.map((park) => (
+            {docs.map((park) => (
               <Marker
                 key={park.id}
-                latitude={park.latitude}
-                longitude={park.longitude}
+                latitude={park.coordinates.latitude}
+                longitude={park.coordinates.longitude}
+                offsetLeft={-20}
+                offsetTop={-20}
               >
-                holis
+                <IconButton
+                  color="secondary"
+                  onClick={() => {
+                    goTo(park.coordinates.latitude, park.coordinates.longitude);
+                    setCurrentPark(park);
+                  }}
+                >
+                  <LocationOnIcon />
+                </IconButton>
               </Marker>
-            ))} */}
-
-            <Marker key={1} latitude={3.3868} longitude={-76.5297}>
-              <IconButton color="secondary">
-                <LocationOnIcon />
-              </IconButton>
-            </Marker>
-            <Marker key={2} latitude={3.3848} longitude={-76.5257}>
-              <IconButton color="secondary">
-                <LocationOnIcon />
-              </IconButton>
-            </Marker>
+            ))}
           </ReactMapGL>
         </div>
       </div>
