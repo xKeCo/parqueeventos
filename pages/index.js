@@ -12,7 +12,7 @@ import SearchBar from "../components/searchbar";
 import Panel from "../components/panel";
 
 export default function Home() {
-  const { docs, loading, error } = useParks(data);
+  const { docs, loading, error } = useParks();
   const [currentPark, setCurrentPark] = useState(null);
 
   const REACT_APP_MAPBOX_TOKEN =
