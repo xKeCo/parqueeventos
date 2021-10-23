@@ -9,7 +9,7 @@ import useParks from "../hook/useParks";
 
 // Styles
 import styles from "../styles/Home.module.css";
-import SearchBar from "../components/searchBar";
+import SearchBar from "../components/searchbar";
 import Panel from "../components/panel";
 
 export default function Home() {
