@@ -1,13 +1,17 @@
 import { useState } from "react";
 import ReactMapGL, { Marker, FlyToInterpolator } from "react-map-gl";
-import { LocationOn as LocationOnIcon } from "@mui/icons-material";
-import IconButton from "@mui/material/IconButton";
+import {
+  LocationOn as LocationOnIcon,
+  Cancel as CancelIcon,
+  DateRange as DateRangeIcon,
+} from "@mui/icons-material";
+import { IconButton } from "@mui/material";
 
 // hook
 import useParks from "../hook/useParks";
 
 // Styles
-import styles from "../styles/Home.module.css";
+import s from "../styles/Home.module.css";
 import SearchBar from "../components/searchbar";
 import Panel from "../components/panel";
 
@@ -39,12 +43,15 @@ export default function Home() {
 
   return (
     <>
-      <div className={styles.map}>
-        <div className={styles.info_container}>
+      <div className={s.map}>
+        <div className={s.info_container}>
           <SearchBar />
+
           {currentPark ? (
-            <>
-              <button
+            <div className={s.desc_container}>
+              <h3>Informaci&oacute;n</h3>
+              <IconButton
+                className={s.cancel_button}
                 onClick={() => {
                   setCurrentPark(null);
                   setViewport({
@@ -54,17 +61,40 @@ export default function Home() {
                   });
                 }}
               >
-                X
-              </button>
-              <h1>{currentPark.name}</h1>
-              <p>{currentPark.location}</p>
-              <p>{currentPark.description}</p>
-              <ul>
-                {currentPark.recomendations.map((recomendation) => (
-                  <li key={recomendation}>{recomendation}</li>
-                ))}
-              </ul>
-            </>
+                <CancelIcon className={s.button} />
+              </IconButton>
+              <img src={currentPark.image} alt="event_image" width="100%" />
+
+              <div className={s.info}>
+                <h1>{currentPark.name}</h1>
+                <div className={s.infoIconContainer}>
+                  <LocationOnIcon fontSize="small" />
+                  <p>{currentPark.location}</p>
+                </div>
+                <div className={s.infoIconContainer}>
+                  <DateRangeIcon fontSize="small" />
+                  <p>
+                    {new Date(currentPark.date.toDate())
+                      .toLocaleString()
+                      .substring(
+                        0,
+                        new Date(currentPark.date.toDate().toString())
+                      )}
+                  </p>
+                </div>
+
+                <br />
+
+                <p>{currentPark.description}</p>
+                <ul>
+                  <br />
+                  <h4>Recomendacion</h4>
+                  {currentPark.recomendations.map((recomendation) => (
+                    <li key={recomendation}>{recomendation}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
           ) : (
             <Panel
               docs={docs}
@@ -75,6 +105,7 @@ export default function Home() {
             />
           )}
         </div>
+
         <div className="map_container">
           <ReactMapGL
             {...viewport}

@@ -5,5 +5,39 @@
 
 .info_container {
   width: 100%;
-  padding: 15px;
+  padding: 15px 30px;
+}
+
+.desc_container {
+  position: relative;
+  margin-top: 15px;
+}
+
+.cancel_button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.parksContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 17px;
+}
+
+.park {
+  width: 100%;
+  margin-bottom: 10px;
+  height: 72px;
+}
+
+.infoIconContainer {
+  display: flex;
+  align-items: center;
 }
