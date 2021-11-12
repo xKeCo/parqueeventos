@@ -5,7 +5,10 @@
 
 .info_container {
   width: 100%;
-  padding: 15px 30px;
+  /* padding: 15px 30px; */
+  padding-top: 0;
+  overflow-y: scroll;
+  height: 100vh;
 }
 
 .desc_container {
@@ -14,7 +17,7 @@
 }
 
 .cancel_button {
-  position: absolute;
+  position: absolute !important;
   top: 0;
   right: 0;
   width: 30px;
@@ -40,4 +43,28 @@
 .infoIconContainer {
   display: flex;
   align-items: center;
+}
+
+.searchBar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding: 15px 30px;
+  background-color: white;
+}
+
+.eventinfo_container {
+  padding: 15px 30px;
+}
+
+.cardInfo_container {
+  margin-bottom: 25px;
+}
+
+.loader {
+  display: flex;
+  justify-content: center;
 }

@@ -10,7 +10,7 @@ const useParks = () => {
   // error
   const [error, setError] = useState(null);
 
-  const getData = async () => {
+  const getParksData = async () => {
     try {
       const parks = await getDocs(query(collection(db, "parks")));
       const docs = parks.docs.map((doc) => ({
@@ -27,13 +27,14 @@ const useParks = () => {
   };
 
   useEffect(() => {
-    getData();
+    getParksData();
   }, []);
 
   return {
     docs,
     loading,
     error,
+    getParksData,
   };
 };
 

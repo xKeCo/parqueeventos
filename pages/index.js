@@ -1,10 +1,6 @@
 import { useState } from "react";
 import ReactMapGL, { Marker, FlyToInterpolator } from "react-map-gl";
-import {
-  LocationOn as LocationOnIcon,
-  Cancel as CancelIcon,
-  DateRange as DateRangeIcon,
-} from "@mui/icons-material";
+import { LocationOn as LocationOnIcon } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 
 // hook
@@ -12,12 +8,17 @@ import useParks from "../hook/useParks";
 
 // Styles
 import s from "../styles/Home.module.css";
+
+// Components
+import EventInfo from "../components/EventInfo";
 import SearchBar from "../components/searchbar";
 import Panel from "../components/panel";
 
 export default function Home() {
-  const { docs, loading, error } = useParks();
+  const { docs, loading, error, getParksData } = useParks();
   const [currentPark, setCurrentPark] = useState(null);
+  const [searchResult, setSearchResult] = useState([]);
+  const [searchText, setSearchText] = useState("");
 
   const REACT_APP_MAPBOX_TOKEN =
     "pk.eyJ1Ijoia2V2Y29sbGF6b3MiLCJhIjoiY2t2MnY4b3ZrODluZjJ3bnpjNmV0aDJhOSJ9.2fKEkC84IvmFQ1M9sdnsIg";
@@ -45,59 +46,26 @@ export default function Home() {
     <>
       <div className={s.map}>
         <div className={s.info_container}>
-          <SearchBar />
+          <SearchBar
+            setSearchResult={setSearchResult}
+            searchText={searchText}
+            setSearchText={setSearchText}
+          />
 
           {currentPark ? (
-            <div className={s.desc_container}>
-              <h3>Informaci&oacute;n</h3>
-              <IconButton
-                className={s.cancel_button}
-                onClick={() => {
-                  setCurrentPark(null);
-                  setViewport({
-                    ...viewport,
-                    zoom: 14,
-                    transitionDuration: 1500,
-                  });
-                }}
-              >
-                <CancelIcon className={s.button} />
-              </IconButton>
-              <img src={currentPark.image} alt="event_image" width="100%" />
-
-              <div className={s.info}>
-                <h1>{currentPark.name}</h1>
-                <div className={s.infoIconContainer}>
-                  <LocationOnIcon fontSize="small" />
-                  <p>{currentPark.location}</p>
-                </div>
-                <div className={s.infoIconContainer}>
-                  <DateRangeIcon fontSize="small" />
-                  <p>
-                    {new Date(currentPark.date.toDate())
-                      .toLocaleString()
-                      .substring(
-                        0,
-                        new Date(currentPark.date.toDate().toString())
-                      )}
-                  </p>
-                </div>
-
-                <br />
-
-                <p>{currentPark.description}</p>
-                <ul>
-                  <br />
-                  <h4>Recomendacion</h4>
-                  {currentPark.recomendations.map((recomendation) => (
-                    <li key={recomendation}>{recomendation}</li>
-                  ))}
-                </ul>
-              </div>
-            </div>
+            <EventInfo
+              currentPark={currentPark}
+              viewport={viewport}
+              setViewport={setViewport}
+              setCurrentPark={setCurrentPark}
+              s={s}
+              getParksData={getParksData}
+              setSearchText={setSearchText}
+              setSearchResult={setSearchResult}
+            />
           ) : (
             <Panel
-              docs={docs}
+              docs={searchResult.length > 0 ? searchResult : docs}
               loading={loading}
               error={error}
               goTo={goTo}
