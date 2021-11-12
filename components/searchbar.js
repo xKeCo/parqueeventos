@@ -25,7 +25,6 @@ export default function SearchBar({
   const handler = () => setVisible(true);
   const closeHandler = () => {
     setVisible(false);
-    console.log("closed");
   };
   const db = getFirestore(app);
   const EventsRef = collection(db, "parks");

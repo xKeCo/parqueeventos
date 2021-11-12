@@ -43,6 +43,7 @@
 .infoIconContainer {
   display: flex;
   align-items: center;
+  margin-bottom: 0.3rem;
 }
 
 .searchBar {
@@ -67,4 +68,8 @@
 .loader {
   display: flex;
   justify-content: center;
+}
+
+.mb_03 {
+  margin-bottom: 1rem;
 }

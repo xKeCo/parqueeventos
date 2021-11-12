@@ -1,5 +1,11 @@
 import { useEffect, useState } from "react";
-import { query, collection, getDocs, getFirestore } from "firebase/firestore";
+import {
+  query,
+  collection,
+  getDocs,
+  getFirestore,
+  orderBy,
+} from "firebase/firestore";
 import { app } from "../config/firebase";
 
 const useParks = () => {
@@ -12,7 +18,9 @@ const useParks = () => {
 
   const getParksData = async () => {
     try {
-      const parks = await getDocs(query(collection(db, "parks")));
+      const parks = await getDocs(
+        query(collection(db, "parks"), orderBy("date"))
+      );
       const docs = parks.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),

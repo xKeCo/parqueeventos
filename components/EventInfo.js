@@ -131,12 +131,13 @@ const EventInfo = ({
             size="small"
             color={isUserInscribed ? "error" : "primary"}
             onClick={handler}
+            className={s.mb_03}
           >
             {isUserInscribed ? "Cancelar inscripcion" : "Inscribirme"}
           </Button>
 
           <br />
-
+          <h4>Descripci&oacute;n</h4>
           <p>{currentPark.description}</p>
           <ul>
             <br />
@@ -157,10 +158,10 @@ const EventInfo = ({
       >
         <Modal.Header>
           <Text id="modal-title" size={18}>
-            Upa bro! No estas loggeado.
+            Upaaaa! Aun estas loggeado.
             <br />
             <Text b size={18}>
-              Inicia Sesion Porfis
+              Inicia sesi&oacute;n para inscribirte 🤨.
             </Text>
           </Text>
         </Modal.Header>

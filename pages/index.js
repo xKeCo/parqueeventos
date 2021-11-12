@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ReactMapGL, { Marker, FlyToInterpolator } from "react-map-gl";
 import { LocationOn as LocationOnIcon } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
@@ -13,6 +13,7 @@ import s from "../styles/Home.module.css";
 import EventInfo from "../components/EventInfo";
 import SearchBar from "../components/searchbar";
 import Panel from "../components/panel";
+import SEO from "../components/SEO";
 
 export default function Home() {
   const { docs, loading, error, getParksData } = useParks();
@@ -45,6 +46,7 @@ export default function Home() {
   return (
     <>
       <div className={s.map}>
+        <SEO />
         <div className={s.info_container}>
           <SearchBar
             setSearchResult={setSearchResult}
