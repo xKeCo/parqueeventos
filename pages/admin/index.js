@@ -3,6 +3,7 @@ import { IconButton } from "@mui/material";
 import {
   LocationOn as LocationOnIcon,
   Delete as DeleteIcon,
+  Home as HomeIcon,
 } from "@mui/icons-material";
 import {
   Modal,
@@ -185,6 +186,15 @@ function index() {
                 }}
               />
             )}
+            <Link href="/">
+              <Button
+                auto
+                className={s.mb_03}
+                color="default"
+                shadow
+                icon={<HomeIcon />}
+              ></Button>
+            </Link>
             <Button
               auto
               className={s.mb_03}
@@ -209,7 +219,9 @@ function index() {
                     <Text> {doc.location} </Text>
                     <Text> {doc.date}</Text>
                     <Text> {doc.time}</Text>
+                    <Text> {doc.assistants.length}</Text>
                   </div>
+
                   <Button
                     size="small"
                     color="error"
@@ -299,6 +311,7 @@ function index() {
                 color="primary"
                 size="large"
                 type="date"
+                min="2021-11-19"
                 onChange={(e) => setDate(e.target.value)}
               />
               <Input
