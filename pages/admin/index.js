@@ -172,7 +172,7 @@ function index() {
   }, [user]);
 
   return (
-    <>
+    <div className={s.admin}>
       {loadingParks ? (
         <Loading />
       ) : (
@@ -455,7 +455,7 @@ function index() {
           </Modal>
         </div>
       )}
-    </>
+    </div>
   );
 }
 
