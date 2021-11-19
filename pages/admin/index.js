@@ -198,9 +198,6 @@ function index() {
                 icon={<HomeIcon />}
               ></Button>
             </Link>
-            <Button auto className={s.mb_03} color="default" shadow>
-              Agregar un evento
-            </Button>
             <Button
               auto
               className={s.mb_03}
@@ -208,6 +205,9 @@ function index() {
               shadow
               onClick={handler}
             >
+              Agregar un evento
+            </Button>
+            <Button auto className={s.mb_03} color="default" shadow>
               Permisos
             </Button>
           </div>

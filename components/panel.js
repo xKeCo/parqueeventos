@@ -2,6 +2,12 @@ import s from "../styles/Home.module.css";
 import { Loading, Card, Text, Button } from "@nextui-org/react";
 import useAuth from "../hook/useAuth";
 import Link from "next/link";
+import {
+  LocationOn as LocationOnIcon,
+  DateRange as DateRangeIcon,
+  Person as PersonIcon,
+  AccessTime as AccessTimeIcon,
+} from "@mui/icons-material";
 
 export default function Panel({ docs, loading, error, goTo, setCurrentPark }) {
   const { user } = useAuth();
@@ -41,10 +47,27 @@ export default function Panel({ docs, loading, error, goTo, setCurrentPark }) {
                     src={doc.image || "/defaultImage.png"}
                   />
                   <div>
-                    <Text h4> {doc.name} </Text>
-                    <Text> {doc.location} </Text>
-                    <Text> {doc.date}</Text>
-                    <Text> {doc.time}</Text>
+                    <div className={s.infoIconContainer}>
+                      <LocationOnIcon fontSize="small" />
+                      <p>{doc.location}</p>
+                    </div>
+                    <div className={s.infoIconContainer}>
+                      <DateRangeIcon fontSize="small" />
+                      <p>{doc.date}</p>
+                    </div>
+                    <div className={s.infoIconContainer}>
+                      <AccessTimeIcon fontSize="small" />
+                      <p>{doc.time}</p>
+                    </div>
+                    <div className={s.infoIconContainer}>
+                      <PersonIcon fontSize="small" />
+                      <p>
+                        {doc.assistants.length}{" "}
+                        {doc.assistants.length === 1
+                          ? "Asistente"
+                          : "Asistentes"}
+                      </p>
+                    </div>
                   </div>
                 </Card>
               </div>
