@@ -4,6 +4,7 @@ import {
   Search as SearchIcon,
   Google as GoogleIcon,
   Facebook as FacebookIcon,
+  Login as LoginIcon,
 } from "@mui/icons-material";
 import useAuth from "../hook/useAuth";
 import { Input, Avatar, Modal, Button, Text } from "@nextui-org/react";
@@ -76,7 +77,12 @@ export default function SearchBar({
           onClick={handlerCerrarSesion}
         />
       ) : (
-        <Avatar pointer squared text="?" onClick={handlerIniciarSesion} />
+        <Avatar
+          pointer
+          squared
+          icon={<LoginIcon />}
+          onClick={handlerIniciarSesion}
+        />
       )}
 
       {/* Modal inicio de sesion */}
