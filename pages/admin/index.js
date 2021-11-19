@@ -4,6 +4,9 @@ import {
   LocationOn as LocationOnIcon,
   Delete as DeleteIcon,
   Home as HomeIcon,
+  DateRange as DateRangeIcon,
+  AccessTime as AccessTimeIcon,
+  Person as PersonIcon,
 } from "@mui/icons-material";
 import {
   Modal,
@@ -195,6 +198,9 @@ function index() {
                 icon={<HomeIcon />}
               ></Button>
             </Link>
+            <Button auto className={s.mb_03} color="default" shadow>
+              Agregar un evento
+            </Button>
             <Button
               auto
               className={s.mb_03}
@@ -202,7 +208,7 @@ function index() {
               shadow
               onClick={handler}
             >
-              Agregar un evento
+              Permisos
             </Button>
           </div>
           <h2 className={s.mb_03}>Mis eventos</h2>
@@ -215,11 +221,32 @@ function index() {
                     src={doc.image || "/defaultImage.png"}
                   />
                   <div>
-                    <Text h4> {doc.name} </Text>
-                    <Text> {doc.location} </Text>
-                    <Text> {doc.date}</Text>
-                    <Text> {doc.time}</Text>
-                    <Text> {doc.assistants.length}</Text>
+                    <h2> {doc.name} </h2>
+                    {/* <Text> {doc.location} </Text> */}
+                    <div className={s.infoIconContainer}>
+                      <LocationOnIcon fontSize="small" />
+                      <p>{doc.location}</p>
+                    </div>
+                    {/* <Text> {doc.date}</Text> */}
+                    <div className={s.infoIconContainer}>
+                      <DateRangeIcon fontSize="small" />
+                      <p>{doc.date}</p>
+                    </div>
+                    {/* <Text> {doc.time}</Text> */}
+                    <div className={s.infoIconContainer}>
+                      <AccessTimeIcon fontSize="small" />
+                      <p>{doc.time}</p>
+                    </div>
+                    {/* <Text> {doc.assistants.length}</Text> */}
+                    <div className={s.infoIconContainer}>
+                      <PersonIcon fontSize="small" />
+                      <p>
+                        {doc.assistants.length}{" "}
+                        {doc.assistants.length === 1
+                          ? "Asistente"
+                          : "Asistentes"}
+                      </p>
+                    </div>
                   </div>
 
                   <Button
