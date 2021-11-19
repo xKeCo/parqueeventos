@@ -102,7 +102,11 @@ const EventInfo = ({
         >
           <CancelIcon className={s.button} />
         </IconButton>
-        <img src={currentPark.image} alt="event_image" width="100%" />
+        <img
+          src={currentPark.image || "/defaultImage.png"}
+          alt="event_image"
+          width="100%"
+        />
 
         <div className={s.info}>
           <h1>{currentPark.name}</h1>
@@ -112,11 +116,11 @@ const EventInfo = ({
           </div>
           <div className={s.infoIconContainer}>
             <DateRangeIcon fontSize="small" />
-            <p>
-              {new Date(currentPark.date.toDate())
-                .toLocaleString()
-                .substring(0, new Date(currentPark.date.toDate().toString()))}
-            </p>
+            <p>{currentPark.date}</p>
+          </div>
+          <div className={s.infoIconContainer}>
+            <DateRangeIcon fontSize="small" />
+            <p>{currentPark.time}</p>
           </div>
           <div className={s.infoIconContainer}>
             <PersonIcon fontSize="small" />

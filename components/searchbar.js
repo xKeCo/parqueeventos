@@ -1,6 +1,10 @@
 import { useState } from "react";
 // Next UI
-import { Search as SearchIcon } from "@mui/icons-material";
+import {
+  Search as SearchIcon,
+  Google as GoogleIcon,
+  Facebook as FacebookIcon,
+} from "@mui/icons-material";
 import useAuth from "../hook/useAuth";
 import { Input, Avatar, Modal, Button, Text } from "@nextui-org/react";
 
@@ -21,14 +25,19 @@ export default function SearchBar({
   searchText,
   setSearchText,
 }) {
-  const [visible, setVisible] = useState(false);
-  const handler = () => setVisible(true);
-  const closeHandler = () => {
-    setVisible(false);
+  const [visibleCerrarSesion, setVisibleCerrarSesion] = useState(false);
+  const [visibleIniciarSesion, setVisibleIniciarSesion] = useState(false);
+  const handlerCerrarSesion = () => setVisibleCerrarSesion(true);
+  const closeHandlerCerrarSesion = () => {
+    setVisibleCerrarSesion(false);
+  };
+  const handlerIniciarSesion = () => setVisibleIniciarSesion(true);
+  const closeHandlerIniciarSesion = () => {
+    setVisibleIniciarSesion(false);
   };
   const db = getFirestore(app);
   const EventsRef = collection(db, "parks");
-  const { user, signOut } = useAuth();
+  const { user, signOut, googleAuth, facebookAuth } = useAuth();
 
   const handleInput = async (e) => {
     setSearchText(e.target.value);
@@ -59,14 +68,60 @@ export default function SearchBar({
         onChange={handleInput}
         value={searchText}
       />
-      {user && <Avatar pointer squared src={user.photoURL} onClick={handler} />}
+      {user ? (
+        <Avatar
+          pointer
+          squared
+          src={user.photoURL}
+          onClick={handlerCerrarSesion}
+        />
+      ) : (
+        <Avatar pointer squared text="?" onClick={handlerIniciarSesion} />
+      )}
 
+      {/* Modal inicio de sesion */}
       <Modal
         closeButton
         blur
         aria-labelledby="modal-title"
-        open={visible}
-        onClose={closeHandler}
+        open={visibleIniciarSesion && !user}
+        onClose={closeHandlerIniciarSesion}
+      >
+        <Modal.Header>
+          <Text id="modal-title" size={18}>
+            Upaaaa! Aun estas loggeado.
+            <br />
+            <Text b size={18}>
+              Inicia sesi&oacute;n 🤨.
+            </Text>
+          </Text>
+        </Modal.Header>
+        <Modal.Body>
+          <Button
+            onClick={googleAuth}
+            color="#DB4437"
+            iconRight={<GoogleIcon />}
+          >
+            Continuar con Google
+          </Button>
+          <Button
+            onClick={facebookAuth}
+            color="#3b5998"
+            iconRight={<FacebookIcon />}
+          >
+            Continuar con Facebook
+          </Button>
+        </Modal.Body>
+        <Modal.Footer />
+      </Modal>
+
+      {/* Modal cerrar sesion */}
+      <Modal
+        closeButton
+        blur
+        aria-labelledby="modal-title"
+        open={visibleCerrarSesion}
+        onClose={closeHandlerCerrarSesion}
       >
         <Modal.Header>
           <Text id="modal-title" size={18}>
@@ -83,12 +138,12 @@ export default function SearchBar({
             color="error"
             onClick={() => {
               signOut();
-              closeHandler();
+              closeHandlerCerrarSesion();
             }}
           >
             Cerrar sesi&oacute;n
           </Button>
-          <Button auto onClick={closeHandler}>
+          <Button auto onClick={closeHandlerCerrarSesion}>
             Cancelar
           </Button>
         </Modal.Body>

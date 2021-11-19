@@ -63,6 +63,7 @@
 
 .cardInfo_container {
   margin-bottom: 25px;
+  max-width: 302px;
 }
 
 .loader {
@@ -72,4 +73,22 @@
 
 .mb_03 {
   margin-bottom: 1rem;
+}
+.mb_0303 {
+  margin: 1rem;
+}
+
+.admin_container {
+  padding: 2rem;
+}
+
+.admin_container_parks {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.admin_top_container {
+  display: flex;
+  gap: 1rem;
 }

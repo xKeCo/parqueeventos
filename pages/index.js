@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ReactMapGL, { Marker, FlyToInterpolator } from "react-map-gl";
 import { LocationOn as LocationOnIcon } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
