@@ -92,7 +92,6 @@ export default function SearchBar({
       <Modal
         closeButton
         blur
-        aria-
         open={visibleIniciarSesion && !user}
         onClose={closeHandlerIniciarSesion}
       >
@@ -128,7 +127,6 @@ export default function SearchBar({
       <Modal
         closeButton
         blur
-        aria-
         open={visibleCerrarSesion}
         onClose={closeHandlerCerrarSesion}
       >

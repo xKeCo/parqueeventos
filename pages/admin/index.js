@@ -188,7 +188,7 @@ function IndexAdmin() {
                 }}
               />
             )}
-            <Link href="/">
+            <Link href="/" passHref>
               <Button
                 auto
                 className={s.mb_03}

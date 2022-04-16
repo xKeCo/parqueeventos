@@ -26,7 +26,7 @@ export default function Panel({ docs, loading, error, goTo, setCurrentPark }) {
               (user.email === "kevin.collazos@uao.edu.co" ||
                 user.email === "joyd.lasprilla@uao.edu.co" ||
                 user.email === "kevcollazos@gmail.com") && (
-                <Link href="/admin">
+                <Link href="/admin" passHref>
                   <Button className={s.mb_03}>
                     Ir al panel de administrador
                   </Button>
