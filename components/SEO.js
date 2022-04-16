@@ -5,6 +5,7 @@ const SEO = () => {
     <Head>
       <title>Parqueventos</title>
       <meta name="description" content="Find the best events" />
+      <link rel="icon" href="logo.svg" />
     </Head>
   );
 };

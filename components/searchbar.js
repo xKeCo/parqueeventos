@@ -29,13 +29,16 @@ export default function SearchBar({
   const [visibleCerrarSesion, setVisibleCerrarSesion] = useState(false);
   const [visibleIniciarSesion, setVisibleIniciarSesion] = useState(false);
   const handlerCerrarSesion = () => setVisibleCerrarSesion(true);
+
   const closeHandlerCerrarSesion = () => {
     setVisibleCerrarSesion(false);
   };
+
   const handlerIniciarSesion = () => setVisibleIniciarSesion(true);
   const closeHandlerIniciarSesion = () => {
     setVisibleIniciarSesion(false);
   };
+
   const db = getFirestore(app);
   const EventsRef = collection(db, "parks");
   const { user, signOut, googleAuth, facebookAuth } = useAuth();
@@ -64,7 +67,7 @@ export default function SearchBar({
       <Input
         fullWidth
         placeholder="Search"
-        size="large"
+        size="lg"
         contentRight={<SearchIcon />}
         onChange={handleInput}
         value={searchText}
@@ -89,12 +92,11 @@ export default function SearchBar({
       <Modal
         closeButton
         blur
-        aria-labelledby="modal-title"
         open={visibleIniciarSesion && !user}
         onClose={closeHandlerIniciarSesion}
       >
         <Modal.Header>
-          <Text id="modal-title" size={18}>
+          <Text size={18}>
             Upaaaa! Aun estas loggeado.
             <br />
             <Text b size={18}>
@@ -125,12 +127,11 @@ export default function SearchBar({
       <Modal
         closeButton
         blur
-        aria-labelledby="modal-title"
         open={visibleCerrarSesion}
         onClose={closeHandlerCerrarSesion}
       >
         <Modal.Header>
-          <Text id="modal-title" size={18}>
+          <Text size={18}>
             Seguro que quieres{" "}
             <Text b size={18}>
               cerrar sesi&oacute;n?
