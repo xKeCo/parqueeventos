@@ -42,7 +42,7 @@ import { useRouter } from "next/router";
 import SEO from "../../components/SEO";
 import Link from "next/link";
 
-function index() {
+function IndexAdmin() {
   const db = getFirestore(app);
   const router = useRouter();
   const { user, signOut } = useAuth();
@@ -452,4 +452,4 @@ function index() {
   );
 }
 
-export default index;
+export default IndexAdmin;
