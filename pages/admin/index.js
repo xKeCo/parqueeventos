@@ -1,5 +1,4 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { IconButton } from "@mui/material";
 import {
   LocationOn as LocationOnIcon,
   Delete as DeleteIcon,
@@ -36,7 +35,7 @@ import {
   uploadBytesResumable,
   getDownloadURL,
 } from "firebase/storage";
-import ReactMapGL, { Marker } from "react-map-gl";
+import Map, { Marker } from "react-map-gl";
 import s from "../../styles/Home.module.css";
 import useAuth from "../../hook/useAuth";
 import { useRouter } from "next/router";
@@ -68,8 +67,8 @@ function index() {
   const onMarkerDragEnd = useCallback((event) => {
     logEvents((_events) => ({ ..._events, onDragEnd: event.lngLat }));
     setMarker({
-      longitude: event.lngLat[0],
-      latitude: event.lngLat[1],
+      longitude: event.lngLat.lng,
+      latitude: event.lngLat.lat,
     });
   }, []);
   const [visible, setVisible] = useState(false);
@@ -250,7 +249,7 @@ function index() {
                   </div>
 
                   <Button
-                    size="small"
+                    size="sm"
                     color="error"
                     className={s.mb_0303}
                     onClick={() => {
@@ -412,30 +411,29 @@ function index() {
                 }}
               />
               <p>Seleccione la ubicacion en el mapa</p>
-              <ReactMapGL
+              <Map
                 {...viewport}
-                mapboxApiAccessToken={REACT_APP_MAPBOX_TOKEN}
+                mapboxAccessToken={REACT_APP_MAPBOX_TOKEN}
                 mapStyle={`mapbox://styles/kevcollazos/ckv2v68vb449914s1cojha71p`}
-                onViewportChange={(viewport) => setViewport(viewport)}
+                onMove={(evt) => setViewport(evt.viewport)}
+                minZoom={12}
+                maxZoom={16}
               >
                 <Marker
                   latitude={marker.latitude}
                   longitude={marker.longitude}
-                  offsetLeft={-20}
-                  offsetTop={-20}
                   draggable
                   onDragEnd={onMarkerDragEnd}
+                  anchor="bottom"
+                  offset={[500, -825]}
                 >
-                  <IconButton color="secondary">
-                    <LocationOnIcon />
-                  </IconButton>
+                  <img src="/pin2.svg" alt="pin" />
                 </Marker>
-              </ReactMapGL>
+              </Map>
             </Modal.Body>
             <Modal.Footer>
               <Button
                 disabled={loading}
-                loading={loading}
                 auto
                 flat
                 color="error"
@@ -443,12 +441,7 @@ function index() {
               >
                 Cancelar
               </Button>
-              <Button
-                disabled={loading}
-                loading={loading}
-                auto
-                onClick={handleSubmit}
-              >
+              <Button disabled={loading} auto onClick={handleSubmit}>
                 Agregar
               </Button>
             </Modal.Footer>

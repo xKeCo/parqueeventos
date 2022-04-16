@@ -27,6 +27,7 @@ const EventInfo = ({
   getParksData,
   setSearchText,
   setSearchResult,
+  loading,
 }) => {
   const db = getFirestore(app);
   const eventRef = doc(db, "parks", currentPark.id);
@@ -83,6 +84,7 @@ const EventInfo = ({
   const closeHandler = () => {
     setVisible(false);
   };
+
   return (
     <div className={s.eventinfo_container}>
       <div className={s.desc_container}>
@@ -91,17 +93,13 @@ const EventInfo = ({
           className={s.cancel_button}
           onClick={() => {
             setCurrentPark(null);
-            setViewport({
-              ...viewport,
-              zoom: 14,
-              transitionDuration: 1500,
-            });
             setSearchResult([]);
             setSearchText("");
           }}
         >
           <CancelIcon className={s.button} />
         </IconButton>
+
         <img
           src={currentPark.image || "/defaultImage.png"}
           alt="event_image"
@@ -125,14 +123,14 @@ const EventInfo = ({
           <div className={s.infoIconContainer}>
             <PersonIcon fontSize="small" />
             <p>
-              {currentPark.assistants.length}{" "}
+              {currentPark.assistants.length}
               {currentPark.assistants.length === 1 ? "Asistente" : "Asistentes"}
             </p>
           </div>
           <Button
             flat={isUserInscribed}
             auto
-            size="small"
+            size="sm"
             color={isUserInscribed ? "error" : "primary"}
             onClick={handler}
             className={s.mb_03}
@@ -153,15 +151,9 @@ const EventInfo = ({
         </div>
       </div>
 
-      <Modal
-        closeButton
-        blur
-        aria-labelledby="modal-title"
-        open={visible && !user}
-        onClose={closeHandler}
-      >
+      <Modal closeButton blur open={visible && !user} onClose={closeHandler}>
         <Modal.Header>
-          <Text id="modal-title" size={18}>
+          <Text size={18}>
             Upaaaa! Aun estas loggeado.
             <br />
             <Text b size={18}>
@@ -170,18 +162,10 @@ const EventInfo = ({
           </Text>
         </Modal.Header>
         <Modal.Body>
-          <Button
-            onClick={googleAuth}
-            color="#DB4437"
-            iconRight={<GoogleIcon />}
-          >
+          <Button onClick={googleAuth} iconRight={<GoogleIcon />}>
             Continuar con Google
           </Button>
-          <Button
-            onClick={facebookAuth}
-            color="#3b5998"
-            iconRight={<FacebookIcon />}
-          >
+          <Button onClick={facebookAuth} iconRight={<FacebookIcon />}>
             Continuar con Facebook
           </Button>
         </Modal.Body>

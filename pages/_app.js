@@ -1,7 +1,6 @@
 import { AppContextProvider } from "../context/AppContext";
 import { Toaster } from "react-hot-toast";
 import { globalConfig } from "../config/toastConfig";
-import { CssBaseline } from "@nextui-org/react";
 import "../styles/globals.css";
 
 function MyApp({ Component, pageProps }) {

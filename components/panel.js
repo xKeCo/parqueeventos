@@ -36,7 +36,7 @@ export default function Panel({ docs, loading, error, goTo, setCurrentPark }) {
               <div
                 key={doc.id}
                 onClick={() => {
-                  goTo(doc.coordinates.latitude, doc.coordinates.longitude);
+                  goTo(doc.coordinates.longitude, doc.coordinates.latitude);
                   setCurrentPark(doc);
                 }}
                 className={s.cardInfo_container}
@@ -47,6 +47,7 @@ export default function Panel({ docs, loading, error, goTo, setCurrentPark }) {
                     src={doc.image || "/defaultImage.png"}
                   />
                   <div>
+                    <h3>{doc.name}</h3>
                     <div className={s.infoIconContainer}>
                       <LocationOnIcon fontSize="small" />
                       <p>{doc.location}</p>

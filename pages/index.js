@@ -1,7 +1,5 @@
-import { useState } from "react";
-import ReactMapGL, { Marker, FlyToInterpolator } from "react-map-gl";
-import { LocationOn as LocationOnIcon } from "@mui/icons-material";
-import { IconButton } from "@mui/material";
+import { useState, useRef, useMemo } from "react";
+import Map, { Marker } from "react-map-gl";
 
 // hook
 import useParks from "../hook/useParks";
@@ -27,19 +25,18 @@ export default function Home() {
   const [viewport, setViewport] = useState({
     latitude: 3.42158,
     longitude: -76.5205,
-    width: "74vw",
+    width: "100vw",
     height: "100vh",
     zoom: 12,
   });
 
-  const goTo = (latitude, longitude) => {
-    setViewport({
-      ...viewport,
-      latitude: latitude,
-      longitude: longitude,
+  const mapRef = useRef(null);
+
+  const goTo = (longitude, latitude) => {
+    mapRef.current?.flyTo({
+      center: [longitude, latitude],
+      duration: 2000,
       zoom: 16,
-      transitionDuration: 1500,
-      transitionInterpolator: new FlyToInterpolator(),
     });
   };
 
@@ -76,34 +73,41 @@ export default function Home() {
           )}
         </div>
 
-        <div className="map_container">
-          <ReactMapGL
+        <div className={s.map_container}>
+          <Map
             {...viewport}
-            mapboxApiAccessToken={REACT_APP_MAPBOX_TOKEN}
+            ref={mapRef}
+            minZoom={12}
+            maxZoom={16}
+            mapboxAccessToken={REACT_APP_MAPBOX_TOKEN}
             mapStyle={`mapbox://styles/kevcollazos/ckv2v68vb449914s1cojha71p`}
-            onViewportChange={(viewport) => setViewport(viewport)}
+            onMove={(evt) => setViewport(evt.viewport)}
           >
             {docs.map((park) => (
               <Marker
-                key={park.id}
-                latitude={park.coordinates.latitude}
-                longitude={park.coordinates.longitude}
-                offsetLeft={-20}
-                offsetTop={-20}
+                key={`marker-${park.id}`}
+                latitude={park.coordinates._lat}
+                longitude={park.coordinates._long}
+                onClick={() => {
+                  goTo(park.coordinates._long, park.coordinates._lat);
+                  setCurrentPark(park);
+                }}
+                anchor="bottom"
+                pitchAlignment="map"
+                offset={[500, -825]}
               >
-                <IconButton
-                  color="secondary"
-                  onClick={() => {
-                    goTo(park.coordinates.latitude, park.coordinates.longitude);
-                    setCurrentPark(park);
-                  }}
-                >
-                  <LocationOnIcon />
-                </IconButton>
+                <img src="/pin2.svg" alt="pin" width="25px" />
               </Marker>
             ))}
-          </ReactMapGL>
+          </Map>
         </div>
+      </div>
+      <div className={s.phoneView}>
+        <h1>
+          Website optimized for computer viewing only, please re-enter from a
+          computer. Thank U! ❤️
+        </h1>
+        <img src="/phone.svg" alt="Imagen" width="80%" />
       </div>
     </>
   );
