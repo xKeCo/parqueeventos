@@ -1,0 +1,11 @@
+.searchBar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding: 1rem 0;
+  backdrop-filter: blur(16px);
+  transition: var(--transition);
+}

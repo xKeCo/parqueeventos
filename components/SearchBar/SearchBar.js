@@ -1,4 +1,6 @@
+// React
 import { useState } from "react";
+
 // Next UI
 import {
   Search as SearchIcon,
@@ -6,13 +8,18 @@ import {
   Facebook as FacebookIcon,
   Login as LoginIcon,
 } from "@mui/icons-material";
-import useAuth from "../hook/useAuth";
+
+// Hooks
+import useAuth from "../../hook/useAuth";
+
+// NextUI
 import { Input, Avatar, Modal, Button, Text } from "@nextui-org/react";
 
 //styles
-import s from "../styles/Home.module.css";
+import s from "./SearchBar.module.css";
+
 //firebase
-import { app } from "../config/firebase";
+import { app } from "../../config/firebase";
 import {
   collection,
   getDocs,
@@ -21,11 +28,7 @@ import {
   where,
 } from "firebase/firestore";
 
-export default function SearchBar({
-  setSearchResult,
-  searchText,
-  setSearchText,
-}) {
+export function SearchBar({ setSearchResult, searchText, setSearchText }) {
   const [visibleCerrarSesion, setVisibleCerrarSesion] = useState(false);
   const [visibleIniciarSesion, setVisibleIniciarSesion] = useState(false);
   const handlerCerrarSesion = () => setVisibleCerrarSesion(true);
@@ -68,6 +71,7 @@ export default function SearchBar({
         fullWidth
         placeholder="Search"
         size="lg"
+        aria-label="Search"
         contentRight={<SearchIcon />}
         onChange={handleInput}
         value={searchText}

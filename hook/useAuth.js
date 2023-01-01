@@ -1,7 +1,14 @@
-import { Context } from "../context/AppContext";
+// React
 import { useContext } from "react";
+
+// Context
+import { Context } from "../context/AppContext";
+
+// React Hot Toast Notification
 import { toast } from "react-hot-toast";
 import { errorConfigTop } from "../config/toastConfig";
+
+// Firebase
 import {
   GoogleAuthProvider,
   FacebookAuthProvider,

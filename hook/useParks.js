@@ -1,4 +1,7 @@
+// React
 import { useEffect, useState } from "react";
+
+// Firebase
 import {
   query,
   collection,

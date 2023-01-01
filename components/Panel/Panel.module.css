@@ -1,0 +1,63 @@
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: var(--transition);
+}
+
+.parksContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 17px;
+  transition: var(--transition);
+}
+
+.mb_03 {
+  margin-bottom: 1rem;
+  transition: var(--transition);
+}
+
+.cardInfo_container {
+  margin-bottom: 25px;
+  max-width: 302px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.cardInfo__details {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  justify-content: center;
+  transition: var(--transition);
+}
+
+.infoIconContainer {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.3rem;
+  transition: var(--transition);
+}
+
+.button {
+  background-color: #0072f5;
+  color: white;
+  border: 1px solid #0072f5;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border-radius: 15px;
+  text-align: center;
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.button:hover {
+  background-color: white;
+  color: #0072f5;
+  font-weight: 500;
+  transition: var(--transition);
+}

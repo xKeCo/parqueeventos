@@ -1,6 +1,6 @@
 import Head from "next/head";
 
-const SEO = () => {
+export const SEO = () => {
   return (
     <Head>
       <title>Parqueventos</title>
@@ -9,5 +9,3 @@ const SEO = () => {
     </Head>
   );
 };
-
-export default SEO;

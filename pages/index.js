@@ -1,5 +1,9 @@
-import { useState, useRef, useMemo } from "react";
+import { useState, useRef } from "react";
+
+// Mapbox
 import Map, { Marker } from "react-map-gl";
+// Mapbox Styles
+import "mapbox-gl/dist/mapbox-gl.css";
 
 // hook
 import useParks from "../hook/useParks";
@@ -8,10 +12,10 @@ import useParks from "../hook/useParks";
 import s from "../styles/Home.module.css";
 
 // Components
-import EventInfo from "../components/EventInfo";
-import SearchBar from "../components/searchbar";
-import Panel from "../components/panel";
-import SEO from "../components/SEO";
+import { EventInfo, SearchBar, Panel, SEO } from "../components/";
+
+// Icons
+import LocationOnIcon from "@mui/icons-material/LocationOn";
 
 export default function Home() {
   const { docs, loading, error, getParksData } = useParks();
@@ -32,8 +36,10 @@ export default function Home() {
 
   const mapRef = useRef(null);
 
+  const refMap = mapRef.current?.flyTo;
+
   const goTo = (longitude, latitude) => {
-    mapRef.current?.flyTo({
+    refMap({
       center: [longitude, latitude],
       duration: 2000,
       zoom: 16,
@@ -57,10 +63,10 @@ export default function Home() {
               viewport={viewport}
               setViewport={setViewport}
               setCurrentPark={setCurrentPark}
-              s={s}
               getParksData={getParksData}
               setSearchText={setSearchText}
               setSearchResult={setSearchResult}
+              refMap={refMap}
             />
           ) : (
             <Panel
@@ -93,10 +99,12 @@ export default function Home() {
                   setCurrentPark(park);
                 }}
                 anchor="bottom"
-                pitchAlignment="map"
-                offset={[500, -825]}
               >
-                <img src="/pin2.svg" alt="pin" width="25px" />
+                <LocationOnIcon
+                  className={s.marker}
+                  color="error"
+                  fontSize="large"
+                />
               </Marker>
             ))}
           </Map>

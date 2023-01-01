@@ -1,6 +1,17 @@
 .map {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  animation: var(--animation);
+  transition: var(--transition);
+}
+
+.map_container {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  animation: var(--animation);
+  transition: var(--transition);
 }
 
 .info_container {
@@ -10,104 +21,70 @@
   max-width: 325px;
   width: 100%;
   height: 100vh;
-}
-
-.map_container {
-  width: 100%;
-  height: 100vh;
-  overflow: hidden;
-}
-
-.desc_container {
-  position: relative;
-  margin-top: 15px;
-}
-
-.cancel_button {
-  position: absolute !important;
-  top: 0;
-  right: 0;
-  width: 30px;
-  height: 30px;
-  cursor: pointer;
-}
-
-.parksContainer {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-top: 17px;
+  transition: var(--transition);
 }
 
 .park {
   width: 100%;
   margin-bottom: 10px;
   height: 72px;
+  transition: var(--transition);
+}
+
+.mb_0303 {
+  margin: 1rem;
+}
+
+.admin_container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  height: 100%;
+  transition: var(--transition);
+}
+
+.admin {
+  padding: 2rem;
+  transition: var(--transition);
+}
+
+.admin_container_parks {
+  display: flex;
+  gap: 2rem;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  transition: var(--transition);
+}
+
+.cardInfo_container {
+  margin-bottom: 25px;
+  max-width: 302px;
+  cursor: pointer;
+  transition: var(--transition);
 }
 
 .infoIconContainer {
   display: flex;
   align-items: center;
   margin-bottom: 0.3rem;
+  transition: var(--transition);
 }
 
-.searchBar {
+.cardInfo_details {
+  padding: 1rem 1rem 0 1rem;
   display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  position: sticky;
-  top: 0;
-  z-index: 1;
-  padding: 1rem 0;
-  background-color: white;
-}
-
-/* .eventinfo_container {
-  padding: 15px 30px;
-} */
-
-.cardInfo_container {
-  margin-bottom: 25px;
-  max-width: 302px;
-}
-
-.loader {
-  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
   justify-content: center;
-}
-
-.mb_03 {
-  margin-bottom: 1rem;
-}
-.mb_0303 {
-  margin: 1rem;
-}
-
-.admin_container {
-  padding: 2rem;
-}
-
-.admin {
-  background-image: url("../public/Wallpaper.svg");
-  background-repeat: no-repeat;
-  height: 100vh;
-  width: 100vw;
-  background-size: "cover";
-  background-position: "center";
-  height: 100vh;
-}
-
-.admin_container_parks {
-  display: flex;
-  gap: 2rem;
-  flex-wrap: wrap;
+  transition: var(--transition);
 }
 
 .admin_top_container {
   display: flex;
   gap: 1rem;
+
+  flex-wrap: wrap;
+  transition: var(--transition);
 }
 
 .phoneView {
@@ -120,6 +97,30 @@
   text-align: center;
   padding: 5rem;
   gap: 5rem;
+  transition: var(--transition);
+}
+
+.button {
+  background-color: #0072f5;
+  color: white;
+  border: 1px solid #0072f5;
+  width: 100%;
+  max-height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.button:hover {
+  background-color: white;
+  color: #0072f5;
+  font-weight: 500;
+  transition: var(--transition);
 }
 
 @media screen and (max-width: 1099px) {

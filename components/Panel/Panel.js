@@ -1,7 +1,16 @@
-import s from "../styles/Home.module.css";
-import { Loading, Card, Text, Button } from "@nextui-org/react";
-import useAuth from "../hook/useAuth";
+// Next
 import Link from "next/link";
+
+// Styles
+import s from "./Panel.module.css";
+
+// NextUI Components
+import { Loading, Card } from "@nextui-org/react";
+
+// Hooks
+import useAuth from "../../hook/useAuth";
+
+// Icons
 import {
   LocationOn as LocationOnIcon,
   DateRange as DateRangeIcon,
@@ -9,7 +18,7 @@ import {
   AccessTime as AccessTimeIcon,
 } from "@mui/icons-material";
 
-export default function Panel({ docs, loading, error, goTo, setCurrentPark }) {
+export function Panel({ docs, loading, error, goTo, setCurrentPark }) {
   const { user } = useAuth();
   return (
     <>
@@ -27,9 +36,9 @@ export default function Panel({ docs, loading, error, goTo, setCurrentPark }) {
                 user.email === "joyd.lasprilla@uao.edu.co" ||
                 user.email === "kevcollazos@gmail.com") && (
                 <Link href="/admin" passHref>
-                  <Button className={s.mb_03}>
+                  <div className={`${s.button} ${s.mb_03}`}>
                     Ir al panel de administrador
-                  </Button>
+                  </div>
                 </Link>
               )}
             {docs.map((doc) => (
@@ -46,7 +55,7 @@ export default function Panel({ docs, loading, error, goTo, setCurrentPark }) {
                     showSkeleton
                     src={doc.image || "/defaultImage.png"}
                   />
-                  <div>
+                  <div className={s.cardInfo__details}>
                     <h3>{doc.name}</h3>
                     <div className={s.infoIconContainer}>
                       <LocationOnIcon fontSize="small" />

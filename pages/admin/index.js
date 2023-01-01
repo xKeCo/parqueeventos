@@ -1,4 +1,11 @@
+// React
 import React, { useState, useCallback, useEffect } from "react";
+
+// Next
+import { useRouter } from "next/router";
+import Link from "next/link";
+
+// Icons
 import {
   LocationOn as LocationOnIcon,
   Delete as DeleteIcon,
@@ -7,6 +14,8 @@ import {
   AccessTime as AccessTimeIcon,
   Person as PersonIcon,
 } from "@mui/icons-material";
+
+// NextUI
 import {
   Modal,
   Button,
@@ -16,6 +25,8 @@ import {
   Avatar,
   Loading,
 } from "@nextui-org/react";
+
+// Firebase
 import {
   collection,
   addDoc,
@@ -35,12 +46,19 @@ import {
   uploadBytesResumable,
   getDownloadURL,
 } from "firebase/storage";
+
+// Mapbox
 import Map, { Marker } from "react-map-gl";
+import "mapbox-gl/dist/mapbox-gl.css";
+
+// Styles
 import s from "../../styles/Home.module.css";
+
+// Hooks
 import useAuth from "../../hook/useAuth";
-import { useRouter } from "next/router";
-import SEO from "../../components/SEO";
-import Link from "next/link";
+
+// Local Components
+import { SEO } from "../../components";
 
 function IndexAdmin() {
   const db = getFirestore(app);
@@ -189,13 +207,9 @@ function IndexAdmin() {
               />
             )}
             <Link href="/" passHref>
-              <Button
-                auto
-                className={s.mb_03}
-                color="default"
-                shadow
-                icon={<HomeIcon />}
-              ></Button>
+              <div className={s.button}>
+                <HomeIcon />
+              </div>
             </Link>
             <Button
               auto
@@ -219,7 +233,7 @@ function IndexAdmin() {
                     showSkeleton
                     src={doc.image || "/defaultImage.png"}
                   />
-                  <div>
+                  <div className={s.cardInfo_details}>
                     <h2> {doc.name} </h2>
                     {/* <Text> {doc.location} </Text> */}
                     <div className={s.infoIconContainer}>
@@ -272,7 +286,7 @@ function IndexAdmin() {
             onClose={closeHandlerCerrarSesion}
           >
             <Modal.Header>
-              <Text id="modal-title" size={18}>
+              <Text size={18}>
                 Seguro que quieres{" "}
                 <Text b size={18}>
                   cerrar sesi&oacute;n?
@@ -308,15 +322,14 @@ function IndexAdmin() {
             onClose={closeHandler}
           >
             <Modal.Header>
-              <Text id="modal-title" size={18}>
-                Registra un nuevo evento
-              </Text>
+              <Text size={18}>Registra un nuevo evento</Text>
             </Modal.Header>
             <Modal.Body>
               <Input
                 clearable
                 bordered
                 fullWidth
+                aria-label="Nombre del evento"
                 color="primary"
                 size="large"
                 placeholder="Nombre del evento"
@@ -326,6 +339,7 @@ function IndexAdmin() {
                 clearable
                 bordered
                 fullWidth
+                aria-label="Lugar del evento"
                 color="primary"
                 size="large"
                 placeholder="Lugar del evento"
@@ -334,6 +348,7 @@ function IndexAdmin() {
               <Input
                 bordered
                 fullWidth
+                arial-label="Fecha del evento"
                 color="primary"
                 size="large"
                 type="date"
@@ -343,6 +358,7 @@ function IndexAdmin() {
               <Input
                 bordered
                 fullWidth
+                arial-label="Hora del evento"
                 color="primary"
                 size="large"
                 type="time"
@@ -352,6 +368,7 @@ function IndexAdmin() {
                 clearable
                 bordered
                 fullWidth
+                aria-label="Descripcion del evento"
                 color="primary"
                 size="large"
                 placeholder="Descripcion del evento"
@@ -363,6 +380,7 @@ function IndexAdmin() {
                     clearable
                     bordered
                     fullWidth
+                    aria-label="Recomendacion"
                     color="primary"
                     size="large"
                     placeholder="Recomendacion"
@@ -401,6 +419,7 @@ function IndexAdmin() {
                 clearable
                 bordered
                 fullWidth
+                aria-label="Imagen del evento"
                 color="primary"
                 label="Imagen del evento"
                 size="large"
@@ -427,7 +446,11 @@ function IndexAdmin() {
                   anchor="bottom"
                   offset={[500, -825]}
                 >
-                  <img src="/pin2.svg" alt="pin" />
+                  <LocationOnIcon
+                    className={s.marker}
+                    color="error"
+                    fontSize="large"
+                  />
                 </Marker>
               </Map>
             </Modal.Body>

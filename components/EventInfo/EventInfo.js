@@ -1,4 +1,6 @@
+// React
 import { useState } from "react";
+
 // Icons
 import {
   LocationOn as LocationOnIcon,
@@ -8,26 +10,32 @@ import {
   Facebook as FacebookIcon,
   Person as PersonIcon,
 } from "@mui/icons-material";
+
 // Material UI
 import { IconButton } from "@mui/material";
+
 // Next UI
 import { Modal, Button, Text } from "@nextui-org/react";
-// Firebase
-import { app } from "../config/firebase";
-import { doc, updateDoc, getFirestore } from "firebase/firestore";
-// Hooks
-import useAuth from "../hook/useAuth";
 
-const EventInfo = ({
+// Firebase
+import { app } from "../../config/firebase";
+import { doc, updateDoc, getFirestore } from "firebase/firestore";
+
+// Hooks
+import useAuth from "../../hook/useAuth";
+
+import s from "./EventInfo.module.css";
+
+export const EventInfo = ({
   setCurrentPark,
   currentPark,
   setViewport,
   viewport,
-  s,
   getParksData,
   setSearchText,
   setSearchResult,
   loading,
+  refMap,
 }) => {
   const db = getFirestore(app);
   const eventRef = doc(db, "parks", currentPark.id);
@@ -95,6 +103,12 @@ const EventInfo = ({
             setCurrentPark(null);
             setSearchResult([]);
             setSearchText("");
+            refMap({
+              center: [-76.5205, 3.42158],
+              zoom: 12,
+              // speed: 0.8,
+              duration: 2000,
+            });
           }}
         >
           <CancelIcon className={s.button} />
@@ -138,11 +152,9 @@ const EventInfo = ({
             {isUserInscribed ? "Cancelar inscripcion" : "Inscribirme"}
           </Button>
 
-          <br />
           <h4>Descripci&oacute;n</h4>
           <p>{currentPark.description}</p>
           <ul>
-            <br />
             <h4>Recomendaci&oacute;n</h4>
             {currentPark.recomendations.map((recomendation) => (
               <li key={recomendation}>{recomendation}</li>
@@ -174,5 +186,3 @@ const EventInfo = ({
     </div>
   );
 };
-
-export default EventInfo;
